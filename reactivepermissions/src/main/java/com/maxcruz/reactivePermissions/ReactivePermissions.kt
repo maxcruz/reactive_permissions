@@ -20,8 +20,8 @@ import rx.lang.kotlin.observable
  *   - Explain why the permission is need if denied
  *   - Block the app if the permission denied is essential
  *
- *   @param activity Activity where the request is performed
- *   @param requestCode Int coda that identify the request
+ *   @property activity Activity where the request is performed
+ *   @property requestCode Int coda that identify the request
  *
  *   @author Max Cruz
  */

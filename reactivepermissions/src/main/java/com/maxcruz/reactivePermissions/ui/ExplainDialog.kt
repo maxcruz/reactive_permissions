@@ -27,6 +27,9 @@ class ExplainDialog() : DialogFragment() {
      */
     val results: PublishSubject<Pair<String, Boolean>> = PublishSubject.create()
 
+    /**
+     * Static stuff
+     */
     companion object {
 
         private val PERMISSION_PARAM: String = "permission"

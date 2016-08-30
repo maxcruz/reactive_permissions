@@ -24,6 +24,9 @@ class BlockedDialog() : DialogFragment() {
 
     private var retryPermission: String? = null
 
+    /**
+     * Static stuff
+     */
     companion object {
 
         private val BLOCKED_PERMISSION_PARAM: String = "blockedPermission"
