@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/colorBackgroundFloating"
+        android:paddingEnd="16dip"
+        android:paddingStart="22dip"
+        android:paddingTop="24dip">
+
+        <include layout="@layout/permission_description" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/colorBackgroundFloating"
+        android:orientation="vertical"
+        android:paddingBottom="8dip"
+        android:paddingEnd="16dip"
+        android:paddingStart="22dip">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            style="?android:attr/buttonBarStyle"
+            android:paddingStart="2dip"
+            android:paddingEnd="0dp"
+            android:paddingTop="16dip">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/confirmButton"
+                style="?android:attr/buttonBarNegativeButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/teal"
+                android:text="@string/explain_permission_skip" />
+
+            <Button
+                android:id="@+id/retryButton"
+                style="?android:attr/buttonBarPositiveButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/teal"
+                android:layout_marginStart="8dip"
+                android:text="@string/explain_permission_next" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

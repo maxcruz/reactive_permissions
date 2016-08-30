@@ -1,0 +1,35 @@
+buildscript {
+
+    ext {
+        compileSdkVersion = 24
+        minSdkVersion = 16
+        targetSdkVersion = 24
+        buildToolsVersion = '24.0.1'
+        gradleVersion = '2.1.2'
+        supportLibraryVersion = '24.2.0'
+        kotlinVersion = '1.0.3'
+        rxKotlinVersion = '0.60.0'
+        jacksonVersion = '2.7.5'
+    }
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradleVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
+    }
+
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

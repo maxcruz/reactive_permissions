@@ -1,0 +1,7 @@
+<resources>
+    <string name="rationale_permission_title">Permission denied</string>
+    <string name="explain_permission_next">Retry</string>
+    <string name="explain_permission_skip">Skip</string>
+    <string name="explain_blocked_permission_dialog">The permission %1$s that is required to work is denied. To continue using the app please enable it in the configuration</string>
+    <string name="explain_blocked_permission_close">Close</string>
+</resources>
