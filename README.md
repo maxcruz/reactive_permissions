@@ -17,7 +17,13 @@ View an example in a simple activity [here](https://github.com/MaxCruz/reactive_
 
 ### Setup
 
-Make sure that you have __jcenter()__ repository (usually it is already set) and just add this to the gradle dependencies for your module
+[//] Make sure that you have __jcenter()__ repository (usually it is already set) and just
+Configure the repository
+```gradle
+maven { url "https://dl.bintray.com/maxcruz/maven" }
+```
+
+Add this to the gradle dependencies for your module
 ```gradle
 compile 'com.github.maxcruz:reactive-permissions:1.0'
 ```
