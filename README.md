@@ -47,8 +47,8 @@ val contacts = Permission(
 // Put al permissions that need request in a single array
 val permissions = listOf(location, camera, contacts)
 ```
-Create the library object for the request
 
+Create the library object for the request
 ```kotlin
 // Define a code to request the permissions
 private val REQUEST_CODE = 10
@@ -56,23 +56,27 @@ private val REQUEST_CODE = 10
 val reactive: ReactivePermissions = ReactivePermissions(this, REQUEST_CODE)
 ```
 
-```
-
-```
-Subscribe to observe the results
+Subscribe to observe results __Pair&lt;String, Boolean&rt;__
 ```kotlin
-reactivePermissions.observeResultPermissions().subscribe { event ->
-  Log.d("PERMISSION", "${event.first} ${event.second}")
+reactive.observeResultPermissions().subscribe { event ->
+    if (event.second) {
+        Toast.makeText(this, "${event.first} GRANTED :-)", Toast.LENGTH_SHORT).show()
+    } else {
+        Toast.makeText(this, "${event.first} DENIED :-(", Toast.LENGTH_SHORT).show()
+    }
+    Log.d("PERMISSION", "${event.first} ${event.second}")
 }
 ```
-Pass the permissions to evaluate
-```
+
+Evaluate the defined permissions. Call __evaluate__ after of register the observer
+```kotlin
 reactivePermissions.evaluate(permissions)
 ```
 
+In the activity, receive the response from the user and pass to the lib
 ```
 override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-  if (requestCode == REQUEST_CODE_PERMISSIONS)
-    reactivePermissions.receive(permissions, grantResults)
+        if (requestCode == REQUEST_CODE)
+                reactive.receive(permissions, grantResults)
 }
 ```
