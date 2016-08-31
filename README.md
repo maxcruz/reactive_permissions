@@ -7,6 +7,8 @@ Deal with Android M permissions in runtime in a simple way with reactive program
 
 ### Flow
 
+User Request Permissions
+
 [DIAGRAM GO HERE]
 
 ### Example 
@@ -26,7 +28,7 @@ Add this to the gradle dependencies for your module
 ```gradle
 compile 'com.github.maxcruz:reactive-permissions:1.0'
 ```
-### Usage
+### Usage for Kotlin, [for Java implementation] (./README-Java.md)
 
 Define permissions as needed:
 ```kotlin
