@@ -44,7 +44,7 @@ val contacts = Permission(
         true
 )
 
-// Put al permissions that need request in a single array
+// Put all permissions to evaluate in a single array 
 val permissions = listOf(location, camera, contacts)
 ```
 
