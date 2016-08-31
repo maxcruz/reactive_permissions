@@ -9,7 +9,7 @@ Deal with Android M permissions in runtime in a simple way with reactive program
 
 User Request Permissions
 
-<img src="./images/flow.png" style="width:400;height:600">
+![](./images/flow.png)
 
 ### Example 
 
