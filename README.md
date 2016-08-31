@@ -47,44 +47,27 @@ val contacts = Permission(
 // Put al permissions that need request in a single array
 val permissions = listOf(location, camera, contacts)
 ```
+Create the library object for the request
 
-
-```
-private val REQUEST_CODE_PERMISSIONS = 10
-
-val reactivePermissions: ReactivePermissions
-```
-
-```
-reactivePermissions = ReactivePermissions(this, REQUEST_CODE_PERMISSIONS)
-
-val fineLocationPermission = Permission(
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        R.string.rationale_access_fine_location,
-        false)
-val cameraPermission = Permission(
-        Manifest.permission.CAMERA,
-        R.string.rationale_camera,
-        true)
-val readContactsPermission = Permission(
-        Manifest.permission.READ_CONTACTS,
-        null,
-        true)
-        
-val dangerousPermissions = listOf(
-        fineLocationPermission,
-        cameraPermission,
-        readContactsPermission)
+```kotlin
+// Define a code to request the permissions
+private val REQUEST_CODE = 10
+// Instantiate the library
+val reactive: ReactivePermissions = ReactivePermissions(this, REQUEST_CODE)
 ```
 
 ```
+
+```
+Subscribe to observe the results
+```kotlin
 reactivePermissions.observeResultPermissions().subscribe { event ->
   Log.d("PERMISSION", "${event.first} ${event.second}")
 }
 ```
-
+Pass the permissions to evaluate
 ```
-reactivePermissions.evaluate(dangerousPermissions)
+reactivePermissions.evaluate(permissions)
 ```
 
 ```
