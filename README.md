@@ -56,7 +56,7 @@ private val REQUEST_CODE = 10
 val reactive: ReactivePermissions = ReactivePermissions(this, REQUEST_CODE)
 ```
 
-Subscribe to observe results __Pair&lt;String, Boolean&rt;__
+Subscribe to observe results __Pair&lt;String, Boolean&gt;__
 ```kotlin
 reactive.observeResultPermissions().subscribe { event ->
     if (event.second) {
@@ -64,7 +64,6 @@ reactive.observeResultPermissions().subscribe { event ->
     } else {
         Toast.makeText(this, "${event.first} DENIED :-(", Toast.LENGTH_SHORT).show()
     }
-    Log.d("PERMISSION", "${event.first} ${event.second}")
 }
 ```
 
@@ -74,9 +73,9 @@ reactivePermissions.evaluate(permissions)
 ```
 
 In the activity, receive the response from the user and pass to the lib
-```
-override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode == REQUEST_CODE)
-                reactive.receive(permissions, grantResults)
+```kotlin
+override fun onRequestPermissionsResult(code: Int, permissions: Array<String>, results: IntArray) {
+        if (code == REQUEST_CODE)
+                reactive.receive(permissions, results)
 }
 ```
