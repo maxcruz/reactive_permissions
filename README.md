@@ -17,8 +17,7 @@ View an example in a simple activity [here](https://github.com/MaxCruz/reactive_
 
 ### Setup
 
-[comment]: <> Make sure that you have __jcenter()__ repository (usually it is already set) and just
-Configure the repository
+Configure the repository with maven
 ```gradle
 maven { url "https://dl.bintray.com/maxcruz/maven" }
 ```
