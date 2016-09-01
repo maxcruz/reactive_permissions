@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils
 import com.maxcruz.reactivePermissions.R
 import kotlinx.android.synthetic.main.explain_permissions.*
 import kotlinx.android.synthetic.main.permission_description.*
+import rx.subjects.PublishSubject
 
 /**
  * Dialog to explain that an essential permission is blocked
@@ -22,6 +23,10 @@ import kotlinx.android.synthetic.main.permission_description.*
  */
 class BlockedDialog() : DialogFragment() {
 
+    /**
+     * Subject object to send the retry event
+     */
+    val results: PublishSubject<String> = PublishSubject.create()
     private var retryPermission: String? = null
 
     /**
@@ -30,6 +35,7 @@ class BlockedDialog() : DialogFragment() {
     companion object {
 
         private val BLOCKED_PERMISSION_PARAM: String = "blockedPermission"
+        private val EXTERNAL_PARAM: String = "external"
 
         /**
          * Returns a new instance of this dialog
@@ -37,11 +43,12 @@ class BlockedDialog() : DialogFragment() {
          * @param permission String constant name for the permission (get from the system)
          * @return Instance for this dialog fragment
          */
-        fun newInstance(permission: String): BlockedDialog {
+        fun newInstance(permission: String, external: Boolean): BlockedDialog {
             val instance = BlockedDialog()
             val arguments = Bundle()
             instance.isCancelable = false
             arguments.putString(BLOCKED_PERMISSION_PARAM, permission)
+            arguments.putBoolean(EXTERNAL_PARAM, external)
             instance.arguments = arguments
             return instance
         }
@@ -69,11 +76,12 @@ class BlockedDialog() : DialogFragment() {
      */
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         val permission = arguments.getString(BLOCKED_PERMISSION_PARAM)
+        val external = arguments.getBoolean(EXTERNAL_PARAM)
         val permissionInfo = activity.packageManager.getPermissionInfo(permission,
                 PackageManager.GET_META_DATA)
         val permissionName = getString(permissionInfo.labelRes)
         val appName = getString(activity.application.applicationInfo.labelRes)
-        explainPermission(permission, permissionName, appName)
+        explainPermission(permission, permissionName, appName, external)
     }
 
     /**
@@ -85,7 +93,7 @@ class BlockedDialog() : DialogFragment() {
      * @param appName String the name of the app
      */
     @Suppress("DEPRECATION")
-    fun explainPermission(permission: String, permissionName: String, appName: String) {
+    fun explainPermission(permission: String, permissionName: String, appName: String, external: Boolean) {
         confirmButton.text = getString(R.string.explain_blocked_permission_close)
         val baseMessage = getString(R.string.explain_blocked_permission_dialog)
         val message = String.format(baseMessage, "<b>$permissionName</b>", appName)
@@ -96,16 +104,30 @@ class BlockedDialog() : DialogFragment() {
             activity.finish()
         }
         retryButton.setOnClickListener {
-            val intent = Intent()
-            intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-            intent.addCategory(Intent.CATEGORY_DEFAULT)
-            intent.data = Uri.parse("package:" + activity.packageName)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-            intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
-            activity.startActivity(intent)
-            retryPermission = permission
+            if (external) {
+                val intent = Intent()
+                intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                intent.addCategory(Intent.CATEGORY_DEFAULT)
+                intent.data = Uri.parse("package:" + activity.packageName)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+                intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
+                activity.startActivity(intent)
+                retryPermission = permission
+            } else {
+                finish()
+                results.onNext(permission)
+            }
         }
+    }
+
+    /**
+     * Animate when dismiss
+     */
+    private fun finish() {
+        val fadeOut = AnimationUtils.loadAnimation(activity, android.R.anim.fade_out)
+        view.startAnimation(fadeOut)
+        dismiss()
     }
 
     /**
@@ -113,7 +135,8 @@ class BlockedDialog() : DialogFragment() {
      */
     override fun onResume() {
         if (retryPermission != null) {
-            dismiss()
+            finish()
+            results.onNext(retryPermission)
         }
         super.onResume()
     }

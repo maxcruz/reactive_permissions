@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Sample</string>
-    <string name="rationale_access_fine_location">Without this permission we can\'t know your location to send you services. Are you sure you want to deny this permission? \nThe app can\'t continue</string>
+    <string name="rationale_location">Without this permission we can\'t know your location to send you services. Are you sure you want to deny this permission? \nThe app can\'t continue</string>
     <string name="rationale_camera">Without this permission the app is unable to take your profile picture. Are you sure you want to deny this permission?</string>
     <string name="rationale_read_contacts">Without this permission the app is unable to autocomplete your contacts. Are you sure you want to deny this permission?</string>
 </resources>

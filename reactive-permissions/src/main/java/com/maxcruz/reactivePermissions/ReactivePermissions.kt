@@ -90,14 +90,16 @@ class ReactivePermissions(private val activity: Activity, private val requestCod
             if (result) {
                 answer.invoke(permission, result)
             } else {
-                if (! shouldShowExplanation(permission.permission)) {
-                    if (permission.canContinue) {
-                        answer.invoke(permission, result)
+                if (shouldShowExplanation(permission.permission)) {
+                    if (permission.explanationResource != null) {
+                        explain()
                     } else {
-                        block()
+                        if (permission.canContinue) answer.invoke(permission, result)
+                        else block()
                     }
                 } else {
-                    explain()
+                    if (permission.canContinue) answer.invoke(permission, result)
+                    else block()
                 }
             }
         }
@@ -144,8 +146,14 @@ class ReactivePermissions(private val activity: Activity, private val requestCod
         if (previous != null) {
             fragmentTransaction.remove(previous)
         }
-        val dialog = BlockedDialog.newInstance(permission.permission)
+        val dialog = BlockedDialog.newInstance(
+                permission.permission,
+                ! shouldShowExplanation(permission.permission)
+        )
         dialog.show(fragmentTransaction, dialogTag)
+        dialog.results.subscribe {
+            request()
+        }
     }
 
     /**
