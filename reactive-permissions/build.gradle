@@ -47,7 +47,7 @@ ext {
     libraryDescription = 'Deal with Android M permissions in runtime in a simple way with reactive programming'
     siteUrl = 'https://github.com/maxcruz/reactive_permissions'
     gitUrl = 'https://github.com/maxcruz/reactive_permissions.git'
-    libraryVersion = '1.0'
+    libraryVersion = '1.1'
     developerId = 'maxcruz'
     developerName = 'Max Cruz'
     developerEmail = 'max.raul@gmail.com'
