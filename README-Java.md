@@ -85,8 +85,8 @@ In the activity, receive the response from the user and pass to the lib
 ```java
 @Override
 public void onRequestPermissionsResult(int code, @NonNull String[] permissions, @NonNull int[] results) {
- if (code == REQUEST_CODE) {
-  reactive.receive(permissions, results);
- }
+    if (code == REQUEST_CODE) {
+        reactive.receive(permissions, results);
+    }
 }
 ```
