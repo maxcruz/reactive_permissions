@@ -1,1 +1,1 @@
-include ':sample', ':reactive-permissions'
+include ':sample', ':sample-java', ':reactive-permissions'
