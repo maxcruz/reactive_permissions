@@ -13,7 +13,7 @@ Deal with Android M permissions in runtime in a simple way with reactive program
 
 View an example in a simple activity [here](./sample-java)
 
-[IMAGE GIF GO HERE]
+![](./images/show.gif)
 
 ### Setup
 
