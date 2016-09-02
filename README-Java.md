@@ -78,15 +78,15 @@ reactive.observeResultPermissions().subscribe(new Action1<Pair<String, Boolean>>
 
 Evaluate the defined permissions. Call __evaluate__ after of register the observer
 ```java
-rreactive.evaluate(permissions);
+reactive.evaluate(permissions);
 ```
 
 In the activity, receive the response from the user and pass to the lib
-```kotlin
+```java
 @Override
 public void onRequestPermissionsResult(int code, @NonNull String[] permissions, @NonNull int[] results) {
-if (code == REQUEST_CODE) {
-    reactive.receive(permissions, results);
-}
+ if (code == REQUEST_CODE) {
+  reactive.receive(permissions, results);
+ }
 }
 ```
