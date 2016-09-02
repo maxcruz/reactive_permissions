@@ -38,13 +38,13 @@ public class MainActivity extends AppCompatActivity {
                 false // If the user deny this permission, block the app
         );
 
-        // Put all permissions to evaluate in a single array
         Permission contacts = new Permission(
                 Manifest.permission.READ_CONTACTS,
                 null, // The context is clear and isn't needed explanation for this permission
                 false
         );
 
+        // Put all permissions to evaluate in a single array
         ArrayList<Permission> permissions = new ArrayList<>();
         permissions.add(camera);
         permissions.add(location);
