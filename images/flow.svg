@@ -14,11 +14,6 @@
 				<stop offset="100%" stop-color="#EFE9DE" stop-opacity="1" />
 				
 			</linearGradient>
-			<linearGradient id="InputOutputShapeWidget" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
-				<stop offset="0%" stop-color="#EBE9F9" stop-opacity="1" />
-				<stop offset="100%" stop-color="#C1BFEA" stop-opacity="1" />
-				
-			</linearGradient>
 			<linearGradient id="EndShapeWidget" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
 				<stop offset="0%" stop-color="#FF0000" stop-opacity="1" />
 				<stop offset="100%" stop-color="#900000" stop-opacity="1" />
@@ -32,6 +27,11 @@
 			<linearGradient id="StartShapeWidget" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
 				<stop offset="0%" stop-color="#c2e08f" stop-opacity="1" />
 				<stop offset="100%" stop-color="#7ec601" stop-opacity="1" />
+				
+			</linearGradient>
+			<linearGradient id="InputOutputShapeWidget" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
+				<stop offset="0%" stop-color="#EBE9F9" stop-opacity="1" />
+				<stop offset="100%" stop-color="#C1BFEA" stop-opacity="1" />
 				
 			</linearGradient>
 			<linearGradient id="ActionShapeWidget" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
@@ -677,8 +677,8 @@
 		<text x="214" y="853" font-size="13" fill="#000000">Retry</text>
 		<text x="438" y="556" font-size="13" fill="#000000">No</text>
 		<text x="534" y="613" font-size="13" fill="#000000">Yes</text>
-		<text x="573" y="678" font-size="13" fill="#000000">No</text>
-		<text x="533" y="739" font-size="13" fill="#000000">Yes</text>
+		<text x="573" y="678" font-size="13" fill="#000000">Yes</text>
+		<text x="533" y="739" font-size="13" fill="#000000">No</text>
 		<text x="533" y="839" font-size="13" fill="#000000"></text>
 		<text x="574" y="553" font-size="13" fill="#000000">No</text>
 		<text x="824" y="513" font-size="13" fill="#000000">Yes</text>
