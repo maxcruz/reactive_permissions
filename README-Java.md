@@ -5,6 +5,16 @@
 
 Deal with Android M permissions in runtime in a simple way with reactive programming. This library was developed in [__Kotlin__](./README.md) but can [interoperate](https://kotlinlang.org/docs/reference/java-to-kotlin-interop.html) with [__Java__](./README-Java.md).
 
+- You may define the permissions that you need (one or many at once). Each permission must be set in the Manifest
+
+- First verify if the permission is already granted, otherwise request to the user
+
+- Each permission may contain a string resource explaining why your app requires this permission. If the user denied the permission, the explanation is displayed with the possibility to retry or skip. Explanation can be omitted if the context is clear.
+
+- If some permissions are very important for your app functionality, you can define that can't continue without this. When an essential permission is denied, a special block dialog is displayed with retry or close options.
+
+- If the user choose the option "never ask again", the retry button in the block dialog opens the preferences of the app.
+
 ### Flow
 
 [![App Flow](https://cdn.rawgit.com/MaxCruz/reactive_permissions/master/images/flow.svg)](./images/flow.svg)
@@ -90,3 +100,21 @@ public void onRequestPermissionsResult(int code, @NonNull String[] permissions, 
     }
 }
 ```
+### License
+```
+Copyright (C) 2016 Max Cruz
+Copyright (C) 2007 The Android Open Source Project
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0.txt
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
