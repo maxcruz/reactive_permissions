@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val contacts = Permission(
                 Manifest.permission.READ_CONTACTS,
                 null, // The context is clear and isn't needed explanation for this permission
-                false
+                true
         )
 
         // Put all permissions to evaluate in a single array
