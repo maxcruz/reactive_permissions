@@ -9,7 +9,7 @@ Deal with Android M permissions in runtime in a simple way with reactive program
 
 User Request Permissions
 
-![](./images/flow.png)
+[![App Flow](https://cdn.rawgit.com/MaxCruz/reactive_permissions/master/images/flow.svg)](./images/flow.svg)
 
 ### Example 
 
