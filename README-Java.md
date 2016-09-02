@@ -26,58 +26,67 @@ compile 'com.github.maxcruz:reactive-permissions:1.1'
 ### Usage for Java, [read here](./README.md) for Kotlin implementation
 
 Define permissions as needed:
-```kotlin
-val camera = Permission(
+```java
+ Permission camera = new Permission(
         Manifest.permission.CAMERA, // Permission constant to request
         R.string.rationale_camera, // String resource with rationale explanation
         true // Define if the app can continue without the permission
-)
+);
 
-val location = Permission(
+Permission location = new Permission(
         Manifest.permission.ACCESS_FINE_LOCATION,
         R.string.rationale_location,
         false // If the user deny this permission, block the app
-)
+);
 
-
-val contacts = Permission(
+Permission contacts = new Permission(
         Manifest.permission.READ_CONTACTS,
         null, // The context is clear and isn't needed explanation for this permission
-        true
-)
+        false
+);
 
-// Put all permissions to evaluate in a single array 
-val permissions = listOf(location, camera, contacts)
+// Put all permissions to evaluate in a single array
+ArrayList<Permission> permissions = new ArrayList<>();
+permissions.add(camera);
+permissions.add(location);
+permissions.add(contacts);
 ```
 
 Create the library object for the request
-```kotlin
+```java
 // Define a code to request the permissions
-private val REQUEST_CODE = 10
+private static final int REQUEST_CODE = 10;
 // Instantiate the library
-val reactive: ReactivePermissions = ReactivePermissions(this, REQUEST_CODE)
+private ReactivePermissions reactive = new ReactivePermissions(this, REQUEST_CODE);
 ```
 
 Subscribe to observe results __Pair&lt;String, Boolean&gt;__
-```kotlin
-reactive.observeResultPermissions().subscribe { event ->
-    if (event.second) {
-        Toast.makeText(this, "${event.first} GRANTED :-)", Toast.LENGTH_SHORT).show()
-    } else {
-        Toast.makeText(this, "${event.first} DENIED :-(", Toast.LENGTH_SHORT).show()
+```java
+reactive.observeResultPermissions().subscribe(new Action1<Pair<String, Boolean>>() {
+
+    @Override
+    public void call(Pair<String, Boolean> event) {
+        if (event.getSecond()) {
+            Toast.makeText(MainActivity.this, event.getFirst() + " GRANTED :-)", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity.this, event.getFirst() + " DENIED :-(", Toast.LENGTH_SHORT).show();
+        }
     }
-}
+
+});
 ```
 
 Evaluate the defined permissions. Call __evaluate__ after of register the observer
-```kotlin
-reactivePermissions.evaluate(permissions)
+```java
+rreactive.evaluate(permissions);
 ```
 
 In the activity, receive the response from the user and pass to the lib
 ```kotlin
-override fun onRequestPermissionsResult(code: Int, permissions: Array<String>, results: IntArray) {
-        if (code == REQUEST_CODE)
-                reactive.receive(permissions, results)
+@Override
+public void onRequestPermissionsResult(int code, @NonNull String[] permissions, @NonNull int[] results) {
+if (code == REQUEST_CODE) {
+    reactive.receive(permissions, results);
+}
 }
 ```
