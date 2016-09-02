@@ -11,7 +11,7 @@ Deal with Android M permissions in runtime in a simple way with reactive program
 
 ### Example 
 
-View an example in a simple activity [here](https://github.com/MaxCruz/reactive_permissions/tree/master/sample)
+View an example in a simple activity [here](./sample-java)
 
 [IMAGE GIF GO HERE]
 
