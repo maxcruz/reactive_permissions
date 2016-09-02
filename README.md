@@ -3,11 +3,9 @@
 [![License](https://img.shields.io/badge/license-Apache2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Repository](https://img.shields.io/badge/jcenter-1.0-brightgreen.svg)](https://bintray.com/maxcruz/maven/reactive-permissions)
 
-Deal with Android M permissions in runtime in a simple way with reactive programming. This library was developed in __Kotlin__ but can [interoperate](https://kotlinlang.org/docs/reference/java-to-kotlin-interop.html) with Java.
+Deal with Android M permissions in runtime in a simple way with reactive programming. This library was developed in [__Kotlin__](./README-Java.md) but can [interoperate](https://kotlinlang.org/docs/reference/java-to-kotlin-interop.html) with [__Java__](./README-Java.md).
 
 ### Flow
-
-User Request Permissions
 
 [![App Flow](https://cdn.rawgit.com/MaxCruz/reactive_permissions/master/images/flow.svg)](./images/flow.svg)
 
@@ -19,16 +17,13 @@ View an example in a simple activity [here](https://github.com/MaxCruz/reactive_
 
 ### Setup
 
-Configure the repository with maven
-```gradle
-maven { url "https://dl.bintray.com/maxcruz/maven" }
-```
+Make sure you have configured the repository __jcenter()__, it is almost always there
 
-Add this to the gradle dependencies for your module
+Add this to the gradle dependencies for your module:
 ```gradle
-compile 'com.github.maxcruz:reactive-permissions:1.0'
+compile 'com.github.maxcruz:reactive-permissions:1.1'
 ```
-### Usage for Kotlin, [for Java implementation] (./README-Java.md)
+### Usage for Kotlin, [read here](./README-Java.md) for Java implementation
 
 Define permissions as needed:
 ```kotlin
