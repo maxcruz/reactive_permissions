@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     // Define a code to request the permissions
     private static final int REQUEST_CODE = 10;
     // Instantiate the library
-    private ReactivePermissions reactive = new ReactivePermissions(this, 10);
+    private ReactivePermissions reactive = new ReactivePermissions(this, REQUEST_CODE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
