@@ -71,7 +71,7 @@ reactive.observeResultPermissions().subscribe { event ->
 
 Evaluate the defined permissions. Call __evaluate__ after of register the observer
 ```kotlin
-reactivePermissions.evaluate(permissions)
+reactive.evaluate(permissions)
 ```
 
 In the activity, receive the response from the user and pass to the lib
