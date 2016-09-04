@@ -65,10 +65,15 @@ class ReactivePermissions(private val activity: Activity, private val requestCod
     }
 
     /**
-     * Request approval for the first permission
+     * Request approval for the next permission, emit onCompleted if there are no
+     * permissions on the stack
      */
     private fun request() {
-        val permission = stack.firstOrNull() ?: return
+        val permission = stack.firstOrNull()
+        if (permission == null) {
+            subscriber.onCompleted()
+            return
+        }
         ActivityCompat.requestPermissions(activity, arrayOf(permission.permission), requestCode)
     }
 

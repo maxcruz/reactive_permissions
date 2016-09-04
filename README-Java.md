@@ -31,7 +31,7 @@ Make sure you have configured the repository __jcenter()__, it is almost always 
 
 Add this to the gradle dependencies for your module:
 ```gradle
-compile 'com.github.maxcruz:reactive-permissions:1.1'
+compile 'com.github.maxcruz:reactive-permissions:1.2'
 ```
 ### Usage for Java, [read here](./README.md) for Kotlin implementation
 
