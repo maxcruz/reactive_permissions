@@ -27,16 +27,16 @@ import rx.lang.kotlin.observable
  */
 class ReactivePermissions(private val activity: Activity, private val requestCode: Int) {
 
-    private val stack: MutableList<Permission> = mutableListOf()
     private val observable: Observable<Pair<String, Boolean>>
-    private lateinit var subscriber: Subscriber<in Pair<String, Boolean>>
+    private var stack: MutableList<Permission>? = null
+    private var subscriber: Subscriber<in Pair<String, Boolean>>? = null
 
     /**
      * Class constructor that initializes the observable object for the results. When send the
      * answer to each permission in the stack, request the next one
      */
     init {
-        observable = observable<Pair<String, Boolean>> { subscriber = it }.doOnNext { request() }
+        observable = observable<Pair<String, Boolean>> { subscriber = it }
     }
 
     /**
@@ -59,9 +59,15 @@ class ReactivePermissions(private val activity: Activity, private val requestCod
         val (grantedPermissions, notGrantedPermissions) = permissionsRequired.partition {
             ! needPermission(it.permission)
         }
-        grantedPermissions.forEach { subscriber.onNext(Pair(it.permission, true)) }
-        stack.addAll(notGrantedPermissions)
-        request()
+        grantedPermissions.forEach {
+            if (subscriber != null) subscriber!!.onNext(Pair(it.permission, true))
+        }
+        if (notGrantedPermissions.isEmpty()) {
+            if (subscriber != null) subscriber!!.onCompleted()
+        } else {
+            stack = notGrantedPermissions.toMutableList()
+            request()
+        }
     }
 
     /**
@@ -69,9 +75,9 @@ class ReactivePermissions(private val activity: Activity, private val requestCod
      * permissions on the stack
      */
     private fun request() {
-        val permission = stack.firstOrNull()
+        val permission = stack!!.firstOrNull()
         if (permission == null) {
-            subscriber.onCompleted()
+            if (subscriber != null) subscriber!!.onCompleted()
             return
         }
         ActivityCompat.requestPermissions(activity, arrayOf(permission.permission), requestCode)
@@ -85,10 +91,11 @@ class ReactivePermissions(private val activity: Activity, private val requestCod
      * @param response Array<Int> to each permission in the list, corresponds an response code
      */
     fun receive(evaluated: Array<String>, response: IntArray) {
-        val permission = stack.firstOrNull() ?: return
+        val permission = stack!!.firstOrNull() ?: return
         val answer = fun (permission: Permission, result: Boolean) {
-            stack.remove(permission)
-            subscriber.onNext(Pair(permission.permission, result))
+            stack!!.remove(permission)
+            if (subscriber!= null) subscriber!!.onNext(Pair(permission.permission, result))
+            request()
         }
         evaluated.zip(response.toTypedArray()).forEach {
             val result = (it.second ==  PackageManager.PERMISSION_GRANTED)
@@ -115,10 +122,11 @@ class ReactivePermissions(private val activity: Activity, private val requestCod
      * permission, the non essentials can be omitted
      */
     private fun explain() {
-        val permission = stack.firstOrNull() ?: return
+        val permission = stack!!.firstOrNull() ?: return
         if (permission.explanationResource == null) {
-            stack.remove(permission)
-            subscriber.onNext(Pair(permission.permission, false))
+            stack!!.remove(permission)
+            if (subscriber!= null) subscriber!!.onNext(Pair(permission.permission, false))
+            request()
             return
         }
         val dialogTag = "explainPermissions"
@@ -133,8 +141,9 @@ class ReactivePermissions(private val activity: Activity, private val requestCod
             if (it.second) {
                 request()
             } else {
-                stack.remove(permission)
-                subscriber.onNext(Pair(it.first, false))
+                stack!!.remove(permission)
+                if (subscriber!= null) subscriber!!.onNext(Pair(it.first, false))
+                request()
             }
         }
     }
@@ -144,17 +153,15 @@ class ReactivePermissions(private val activity: Activity, private val requestCod
      * the permission with the preferences
      */
     private fun block() {
-        val permission = stack.firstOrNull() ?: return
+        val permission = stack!!.firstOrNull() ?: return
         val dialogTag = "blockedPermission"
         val fragmentTransaction = activity.fragmentManager.beginTransaction()
         val previous = activity.fragmentManager.findFragmentByTag(dialogTag)
         if (previous != null) {
             fragmentTransaction.remove(previous)
         }
-        val dialog = BlockedDialog.newInstance(
-                permission.permission,
-                ! shouldShowExplanation(permission.permission)
-        )
+        val dialog = BlockedDialog.newInstance(permission.permission,
+                ! shouldShowExplanation(permission.permission))
         dialog.show(fragmentTransaction, dialogTag)
         dialog.results.subscribe {
             request()
