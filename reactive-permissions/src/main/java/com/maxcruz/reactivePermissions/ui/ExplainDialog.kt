@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import com.maxcruz.reactivePermissions.R
 import com.maxcruz.reactivePermissions.entity.Permission
 import kotlinx.android.synthetic.main.explain_permissions.*
@@ -43,9 +41,7 @@ class ExplainDialog() : DialogFragment() {
         fun newInstance(permission: Permission): ExplainDialog {
             val instance = ExplainDialog()
             val arguments = Bundle()
-            val mapper = jacksonObjectMapper()
-            val stringPermission = mapper.writeValueAsString(permission)
-            arguments.putString(PERMISSION_PARAM, stringPermission)
+            arguments.putParcelable(PERMISSION_PARAM, permission)
             instance.arguments = arguments
             instance.isCancelable = false
             return instance
@@ -75,12 +71,15 @@ class ExplainDialog() : DialogFragment() {
      * @param savedInstanceState Bundle previous saved state as given here.
      */
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        val permissionString = arguments.getString(PERMISSION_PARAM)
-        val mapper = jacksonObjectMapper()
-        val permissionObject = mapper.readValue<Permission>(permissionString)
-        val (permission, resource, canContinue) = permissionObject
-        val (icon, name) = permissionInfo(permission)
-        explainPermission(permission, resource, name, icon, canContinue)
+        val permission = arguments.getParcelable<Permission>(PERMISSION_PARAM)
+        val (icon, name) = permissionInfo(permission.permission)
+        explainPermission(
+                permission.permission,
+                permission.explanationResource,
+                name,
+                icon,
+                permission.canContinue
+        )
     }
 
     /**

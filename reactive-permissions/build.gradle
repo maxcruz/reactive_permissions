@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'org.jetbrains.dokka-android'
 
 
 android {
@@ -22,18 +21,11 @@ android {
     }
 }
 
-dokka {
-    moduleName = 'reactive-permissions'
-    outputFormat = 'javadoc'
-    outputDirectory = "$buildDir/javadoc"
-}
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.ext.kotlinVersion"
     compile "io.reactivex:rxkotlin:$rootProject.ext.rxKotlinVersion"
-    compile "com.fasterxml.jackson.module:jackson-module-kotlin:$rootProject.ext.jacksonVersion"
 }
 
 apply plugin: 'com.android.library'
@@ -47,7 +39,7 @@ ext {
     libraryDescription = 'Deal with Android M permissions in runtime in a simple way with reactive programming'
     siteUrl = 'https://github.com/maxcruz/reactive_permissions'
     gitUrl = 'https://github.com/maxcruz/reactive_permissions.git'
-    libraryVersion = '1.3'
+    libraryVersion = '1.4'
     developerId = 'maxcruz'
     developerName = 'Max Cruz'
     developerEmail = 'max.raul@gmail.com'
