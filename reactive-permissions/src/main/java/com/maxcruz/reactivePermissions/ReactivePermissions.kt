@@ -3,6 +3,7 @@ package com.maxcruz.reactivePermissions
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import com.maxcruz.reactivePermissions.entity.Permission
 import com.maxcruz.reactivePermissions.ui.BlockedDialog
@@ -30,6 +31,7 @@ class ReactivePermissions(private val activity: Activity, private val requestCod
     private val observable: Observable<Pair<String, Boolean>>
     private var stack: MutableList<Permission>? = null
     private var subscriber: Subscriber<in Pair<String, Boolean>>? = null
+    private var fragment: Fragment? = null
 
     /**
      * Class constructor that initializes the observable object for the results. When send the
@@ -37,6 +39,10 @@ class ReactivePermissions(private val activity: Activity, private val requestCod
      */
     init {
         observable = observable<Pair<String, Boolean>> { subscriber = it }
+    }
+
+    constructor(fragment: Fragment, requestCode: Int):this(fragment.activity, requestCode) {
+        this.fragment = fragment
     }
 
     /**
@@ -80,7 +86,9 @@ class ReactivePermissions(private val activity: Activity, private val requestCod
             if (subscriber != null) subscriber!!.onCompleted()
             return
         }
-        ActivityCompat.requestPermissions(activity, arrayOf(permission.permission), requestCode)
+        val permissions = arrayOf(permission.permission)
+        if (fragment != null) (fragment as Fragment).requestPermissions(permissions, requestCode)
+        else ActivityCompat.requestPermissions(activity, permissions, requestCode)
     }
 
     /**
