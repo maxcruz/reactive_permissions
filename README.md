@@ -31,9 +31,16 @@ View an example in a simple activity [here](https://github.com/MaxCruz/reactive_
 Make sure you have configured the repository __jcenter()__, it is almost always there
 
 Add this to the gradle dependencies for your module:
+
+* For RxJava 1.x
 ```gradle
-compile 'com.github.maxcruz:reactive-permissions:1.4'
+compile 'com.github.maxcruz:reactive-permissions:1.5'
 ```
+* For RxJava 2.x
+```gradle
+compile 'com.github.maxcruz:reactive-permissions:2.0'
+```
+
 ### Usage for Kotlin, [read here](./README-Java.md) for Java implementation
 
 Define permissions as needed:
