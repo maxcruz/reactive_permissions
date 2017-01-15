@@ -10,8 +10,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 15
-        versionName "1.5"
+        versionCode 20
+        versionName "2.0"
     }
     buildTypes {
         release {
@@ -26,7 +26,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.ext.kotlinVersion"
-    compile "io.reactivex:rxkotlin:$rootProject.ext.rxKotlinVersion"
+    compile "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxJavaVersion"
 }
 
 apply plugin: 'com.android.library'
@@ -40,7 +40,7 @@ ext {
     libraryDescription = 'Deal with Android M permissions in runtime in a simple way with reactive programming'
     siteUrl = 'https://github.com/maxcruz/reactive_permissions'
     gitUrl = 'https://github.com/maxcruz/reactive_permissions.git'
-    libraryVersion = '1.5'
+    libraryVersion = '2.0'
     developerId = 'maxcruz'
     developerName = 'Max Cruz'
     developerEmail = 'max.raul@gmail.com'

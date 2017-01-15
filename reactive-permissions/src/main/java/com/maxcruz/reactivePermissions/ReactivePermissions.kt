@@ -8,9 +8,8 @@ import android.support.v4.content.ContextCompat
 import com.maxcruz.reactivePermissions.entity.Permission
 import com.maxcruz.reactivePermissions.ui.BlockedDialog
 import com.maxcruz.reactivePermissions.ui.ExplainDialog
-import rx.Observable
-import rx.Subscriber
-import rx.lang.kotlin.observable
+import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
 
 /**
  * This class, manages the permissions request in Android M and sends the answers using an
@@ -30,7 +29,7 @@ class ReactivePermissions(private val activity: Activity, private val requestCod
 
     private val observable: Observable<Pair<String, Boolean>>
     private var stack: MutableList<Permission>? = null
-    private var subscriber: Subscriber<in Pair<String, Boolean>>? = null
+    private var subscriber: ObservableEmitter<in Pair<String, Boolean>>? = null
     private var fragment: Fragment? = null
 
     /**
@@ -38,7 +37,7 @@ class ReactivePermissions(private val activity: Activity, private val requestCod
      * answer to each permission in the stack, request the next one
      */
     init {
-        observable = observable<Pair<String, Boolean>> { subscriber = it }
+        observable = Observable.create<Pair<String, Boolean>> { subscriber = it  }
     }
 
     constructor(fragment: Fragment, requestCode: Int):this(fragment.activity, requestCode) {
@@ -69,7 +68,7 @@ class ReactivePermissions(private val activity: Activity, private val requestCod
             if (subscriber != null) subscriber!!.onNext(Pair(it.permission, true))
         }
         if (notGrantedPermissions.isEmpty()) {
-            if (subscriber != null) subscriber!!.onCompleted()
+            if (subscriber != null) subscriber!!.onComplete()
         } else {
             stack = notGrantedPermissions.toMutableList()
             request()
@@ -83,7 +82,7 @@ class ReactivePermissions(private val activity: Activity, private val requestCod
     private fun request() {
         val permission = stack!!.firstOrNull()
         if (permission == null) {
-            if (subscriber != null) subscriber!!.onCompleted()
+            if (subscriber != null) subscriber!!.onComplete()
             return
         }
         val permissions = arrayOf(permission.permission)

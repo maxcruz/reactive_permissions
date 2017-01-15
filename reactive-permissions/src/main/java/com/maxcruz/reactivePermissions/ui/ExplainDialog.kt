@@ -9,16 +9,16 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.maxcruz.reactivePermissions.R
 import com.maxcruz.reactivePermissions.entity.Permission
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.explain_permissions.*
 import kotlinx.android.synthetic.main.permission_description.*
-import rx.subjects.PublishSubject
 
 /**
  * Dialog to explain why an permission is required
  *
  * @author Max Cruz
  */
-class ExplainDialog() : DialogFragment() {
+class ExplainDialog : DialogFragment() {
 
     /**
      * Subject object to send the button click event in the dialog

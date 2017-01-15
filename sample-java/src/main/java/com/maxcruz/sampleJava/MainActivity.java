@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
-
 import com.maxcruz.reactivePermissions.ReactivePermissions;
 import com.maxcruz.reactivePermissions.entity.Permission;
-
 import java.util.ArrayList;
 
+import io.reactivex.functions.Consumer;
 import kotlin.Pair;
-import rx.functions.Action1;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
         permissions.add(contacts);
 
         // Subscribe to observe results
-        reactive.observeResultPermissions().subscribe(new Action1<Pair<String, Boolean>>() {
+        reactive.observeResultPermissions().subscribe(new Consumer<Pair<String,Boolean>>() {
 
             @Override
-            public void call(Pair<String, Boolean> event) {
+            public void accept(Pair<String, Boolean> event) {
                 if (event.getSecond()) {
                     Toast.makeText(MainActivity.this, event.getFirst() + " GRANTED :-)", Toast.LENGTH_SHORT).show();
                 } else {

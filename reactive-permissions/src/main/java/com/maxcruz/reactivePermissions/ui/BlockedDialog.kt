@@ -12,16 +12,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.maxcruz.reactivePermissions.R
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.explain_permissions.*
 import kotlinx.android.synthetic.main.permission_description.*
-import rx.subjects.PublishSubject
 
 /**
  * Dialog to explain that an essential permission is blocked
  *
  * @author Max Cruz
  */
-class BlockedDialog() : DialogFragment() {
+class BlockedDialog : DialogFragment() {
 
     /**
      * Subject object to send the retry event
