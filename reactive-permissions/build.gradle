@@ -10,8 +10,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 20
-        versionName "2.0"
+        versionCode 21
+        versionName "2.1"
     }
     buildTypes {
         release {
@@ -40,7 +40,7 @@ ext {
     libraryDescription = 'Deal with Android M permissions in runtime in a simple way with reactive programming'
     siteUrl = 'https://github.com/maxcruz/reactive_permissions'
     gitUrl = 'https://github.com/maxcruz/reactive_permissions.git'
-    libraryVersion = '2.0'
+    libraryVersion = '2.1'
     developerId = 'maxcruz'
     developerName = 'Max Cruz'
     developerEmail = 'max.raul@gmail.com'
