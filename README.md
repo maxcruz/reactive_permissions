@@ -38,7 +38,7 @@ compile 'com.github.maxcruz:reactive-permissions:1.5'
 ```
 * For RxJava 2.x
 ```gradle
-compile 'com.github.maxcruz:reactive-permissions:2.0'
+compile 'com.github.maxcruz:reactive-permissions:2.1'
 ```
 
 ### Usage for Kotlin, [read here](./README-Java.md) for Java implementation
